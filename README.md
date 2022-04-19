@@ -1,2 +1,2 @@
-# boggle
+# baggle
 a word search game
