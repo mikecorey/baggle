@@ -1,18 +1,18 @@
-''' it's a (very) basic boggle game '''
+''' it's a (very) basic baggle game '''
 
 import sys
 import random
 import time
 
 
-class Boggle:
-    ''' it's a basic Boggle game '''
+class Baggle:
+    ''' it's a basic Baggle game '''
 
     def __init__(self, time_limit=90, dictionary=None):
         self.time_limit = time_limit
         self.dictionary = dictionary
         self.found_words = []
-        self.board = [[random.choice(Boggle.dice[i*4+j]) for j in range(4)] for i in range(4)]
+        self.board = [[random.choice(Baggle.dice[i*4+j]) for j in range(4)] for i in range(4)]
         if self.dictionary:
             print(f'Using a dictionary with {len(self.dictionary)} words.')
 
@@ -32,7 +32,7 @@ class Boggle:
             else:
                 print('Out of time...')
         print(f'\nFinal words: {self.found_words}')
-        print(f'TOTAL SCORE: {sum([Boggle.point_vals[min(len(w), 8)] for w in self.found_words])}')
+        print(f'TOTAL SCORE: {sum([Baggle.point_vals[min(len(w), 8)] for w in self.found_words])}')
 
     def cheat(self):
         ''' shows all the valid words in the dictionary '''
@@ -50,7 +50,7 @@ class Boggle:
             if print_reason:
                 print('Already found word!')
             return False
-        if not Boggle.__recursive_word_search(self.board, word.replace('qu', 'q')):
+        if not Baggle.__recursive_word_search(self.board, word.replace('qu', 'q')):
             if print_reason:
                 print('Not on board!')
             return False
@@ -90,7 +90,7 @@ class Boggle:
         for start in starts:
             new_board = [row[:] for row in board]
             new_board[start[0]][start[1]] = ''
-            if Boggle.__recursive_word_search(new_board, word[1:], next_to=start):
+            if Baggle.__recursive_word_search(new_board, word[1:], next_to=start):
                 return True
         return False
 
@@ -102,14 +102,14 @@ class Boggle:
 
 
 def main():
-    ''' entry point for boggle game '''
+    ''' entry point for baggle game '''
     dictionary = None
     if len(sys.argv) > 1:
-        dictionary = Boggle.load_dictionary(sys.argv[1])
-    boggle = Boggle(time_limit=90, dictionary=dictionary)
+        dictionary = Baggle.load_dictionary(sys.argv[1])
+    baggle = Baggle(time_limit=90, dictionary=dictionary)
     if len(sys.argv) > 2 and sys.argv[2] == 'CHEAT':
-        boggle.cheat()
-    boggle.play()
+        baggle.cheat()
+    baggle.play()
 
 
 if __name__ == '__main__':
